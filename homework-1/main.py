@@ -16,4 +16,7 @@ if __name__ == '__main__':
     print(stack.top.next_node.data)  # data2
     print(stack.top.next_node.next_node.data)  # data1
     print(stack.top.next_node.next_node.next_node)  # None
-    print(stack.top.next_node.next_node.next_node.data)  # AttributeError: 'NoneType' object has no attribute 'data'
+    try:
+        print(stack.top.next_node.next_node.next_node.data)  # AttributeError: 'NoneType' object has no attribute 'data'
+    except AttributeError:
+        print("AttributeError: 'NoneType' object has no attribute 'data'")
