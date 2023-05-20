@@ -33,4 +33,9 @@ class Stack:
 
         :return: данные удаленного элемента
         """
-        pass
+        if self.top is None:
+            raise IndexError('Попытка удаления элемента из пустого стека')
+        top = self.top
+        self.top = self.top.next_node
+        return top.data
+

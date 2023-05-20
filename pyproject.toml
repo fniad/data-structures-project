@@ -12,6 +12,9 @@ coverage = "^7.2.5"
 inittest = "^0.0.1"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^4.0.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
