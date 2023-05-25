@@ -39,11 +39,15 @@ class TestStack(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_str(self):
+        self.assertEqual(self.stack.__str__(), "data3\ndata2\ndata1")  # проверяем порядок добавления в стек
+
     def test_stack_push(self):
         self.assertEqual(self.stack.top.data, 'data3')  # проверяем верхний объект стека
         self.assertEqual(self.stack.top.next_node.data, 'data2')  # объект второй сверху
         self.assertEqual(self.stack.top.next_node.next_node.data, 'data1')  # проверяем объект ниже, третий сверху
-        self.assertEqual(self.stack.top.next_node.next_node.next_node, None)  # проверяем объект ещё ниже, но обнаруживаем, что такого нет
+        # проверяем объект ещё ниже, но обнаруживаем, что такого нет
+        self.assertEqual(self.stack.top.next_node.next_node.next_node, None)
         with self.assertRaises(AttributeError):
             self.stack.top.next_node.next_node.next_node.data  # выводим ошибку, если запрашивают объект, которого нет
 
@@ -53,4 +57,5 @@ class TestStack(unittest.TestCase):
         self.assertEqual(self.stack.top.data, 'data2')  # проверяем какой объект теперь вверху стека
         self.assertEqual(self.stack.pop(), 'data2')
         self.assertEqual(self.stack.pop(), 'data1')
-        self.assertRaises(IndexError, self.stack.pop)  # проверяем, что при удалении из пустого стека будет ошибка IndexError
+        # проверяем, что при удалении из пустого стека будет ошибка IndexError
+        self.assertRaises(IndexError, self.stack.pop)
