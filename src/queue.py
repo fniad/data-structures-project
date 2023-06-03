@@ -40,7 +40,7 @@ class Queue:
         :return: данные удаленного элемента
         """
         if self.is_empty():
-            raise IndexError('Попытка удаления элемента из пустого стека')
+            return None
         head = self.head
         self.head = head.next_node
         if self.is_empty():

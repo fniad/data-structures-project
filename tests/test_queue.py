@@ -59,5 +59,4 @@ class TextQueue(unittest.TestCase):
         self.queue.dequeue()
         self.queue.dequeue()
         self.assertEqual(self.queue.head, None)  # Удаляем все объекты и доходим до пустой очереди
-        # Проверяем вывод ошибки при попутке удаления из пустой очереди
-        self.assertRaises(IndexError, self.queue.dequeue)
+        self.assertEqual(self.queue.dequeue(), None)
