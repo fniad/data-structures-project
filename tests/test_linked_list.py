@@ -24,7 +24,7 @@ class TestNode(unittest.TestCase):
 
 class TestLinkedList(unittest.TestCase):
     """
-
+    Тестирование класса LinkedList
     """
     def setUp(self):
         """ Тестовые данные для теста: заданные два объекта класса LinkedList """
@@ -69,3 +69,65 @@ class TestLinkedList(unittest.TestCase):
         """Добавление элемента в конец списка"""
         self.ll.insert_at_end({'id': 4})
         self.assertEqual(self.ll.__repr__(), "{'id': 0} -> {'id': 1} -> {'id': 2} -> {'id': 3} -> {'id': 4}")
+
+        # Проверка при добавлении в пустой список
+        ll3 = LinkedList()
+        ll3.insert_at_end({'id': 5})
+        self.assertEqual(ll3.head.data, {'id': 5})
+        self.assertEqual(ll3.tail.data, {'id': 5})
+
+
+class Test_LinkedList_to_list_data_by_id(unittest.TestCase):
+    """
+        Тестирование класса LinkedList:
+        функции test_to_list and get_data_by_id
+    """
+
+    def setUp(self):
+        """ Тестовые данные для теста: заданные два объекта класса LinkedList """
+        self.ll = LinkedList()
+        # Добавляем данные
+        self.ll.insert_beginning({'id': 1, 'username': 'lazzy508509'})
+        self.ll.insert_at_end({'id': 2, 'username': 'mik.roz'})
+        self.ll.insert_at_end({'id': 3, 'username': 'mosh_s'})
+        self.ll.insert_beginning({'id': 0, 'username': 'serebro'})
+
+    def tearDown(self):
+        pass
+
+    def test_to_list(self):
+        """Возвращение списка с данными в списке"""
+        self.assertEqual(self.ll.to_list(), [{'id': 0, 'username': 'serebro'},
+                                             {'id': 1, 'username': 'lazzy508509'},
+                                             {'id': 2, 'username': 'mik.roz'},
+                                             {'id': 3, 'username': 'mosh_s'},
+                                             ])
+
+    def test_get_data_by_id(self):
+        """
+        Возврат первого найденного словаря с ключом id,
+        значение которого передано по методу"""
+        user_data = self.ll.get_data_by_id(3)
+        self.assertEqual(user_data, {'id': 3, 'username': 'mosh_s'})
+
+        # Проверка обработки ошибок
+        ll4 = LinkedList()
+        ll4.insert_beginning({'id': 1, 'username': 'lazzy508509'})
+        ll4.insert_at_end('idusername')
+        ll4.insert_at_end([1, 2, 3])
+        ll4.insert_at_end({'id': 2, 'username': 'mosh_s'})
+
+        # Корректный поиск по ID
+        self.assertEqual(ll4.get_data_by_id(2), {'id': 2, 'username': 'mosh_s'})
+
+        # Проверка обработки ошибки некорректного типа ID
+        with self.assertRaises(TypeError):
+            ll4.get_data_by_id('2')
+
+        # Проверка обработки ошибки отсутствия элемента с заданным ID
+        with self.assertRaises(ValueError):
+            ll4.get_data_by_id(4)
+
+        # Проверка обработки ошибки при отсутствии элемента в списке
+        with self.assertRaises(ValueError):
+            ll4.get_data_by_id(3)
