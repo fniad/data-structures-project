@@ -19,6 +19,7 @@ class LinkedList:
         self.tail = None
         self.head = None
         self.length = 0
+        self.values = []
 
     def __str__(self) -> str:
         """Вывод данных односвязного списка в строковом представлении"""
@@ -68,5 +69,34 @@ class LinkedList:
             self.tail.next_node = new_node
             self.tail = new_node
         self.length += 1
+
+    def to_list(self):
+        """Возвращает список с данными, содержащимися в односвязном списке LinkedList"""
+        node = self.head
+        while node:
+            self.values.append(node.data)
+            node = node.next_node
+        return self.values
+
+    def get_data_by_id(self, id_dict):
+        """
+        Возвращает первый найденный в LinkedList словарь с ключом 'id',
+        значение которого равно переданному в метод значению.
+        """
+        if not isinstance(id_dict, int):
+            raise TypeError('ID должно быть целочисленным числом.')  # ID должен быть целым числом
+
+        node = self.head
+        while node:
+            try:
+                if isinstance(node.data, dict) and 'id' in node.data:
+                    if node.data['id'] == id_dict:
+                        return node.data
+                else:
+                    raise ValueError('Данные не являются словарём или в словаре нет ID.')
+            except ValueError as ex:
+                print(ex)
+            node = node.next_node
+        raise ValueError(f'Элемента с номером {id_dict} нет.')  # Элемент с ID <номер> не найден.
 
 
