@@ -78,7 +78,7 @@ class LinkedList:
             node = node.next_node
         return self.values
 
-    def get_data_by_id(self, id_dict):
+    def get_data_by_id(self, id_dict: int):
         """
         Возвращает первый найденный в LinkedList словарь с ключом 'id',
         значение которого равно переданному в метод значению.
